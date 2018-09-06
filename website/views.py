@@ -121,20 +121,7 @@ def addmember(request):
         return render(request, template_name, {'user_form': user_form})
         
         
-    # if request.method == 'POST':
-    #     user = UserForm(data=request.POST)
-    #     username=request.POST['username']
-    #     password=request.POST['password']
-    #     authenticated_user = authenticate(username=username, password=password)
-    #     if user.is_valid():
-    #         user.set_password(password)
-    #         user.save()
-    #         return render(request, 'index.html')
     
-    # elif request.method == 'GET':
-    #     user_form = UserForm()
-    #     template_name = 'addmember.html'
-    #     return render(request, template_name, {'user_form': user_form})
 
 
 
