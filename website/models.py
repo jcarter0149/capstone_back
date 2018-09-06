@@ -46,5 +46,5 @@ class Role(models.Model):
 
 class Profile(models.Model):
     rank = models.CharField(choices=RANK_CHOICES, max_length=15)
-    team = models.ManyToManyField(User)
+    team = models.ManyToManyField(Team)
     role = models.ForeignKey(Role, on_delete=models.CASCADE)

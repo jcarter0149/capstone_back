@@ -1,7 +1,7 @@
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import RequestContext
 
 from website.forms import UserForm
@@ -90,30 +90,51 @@ def user_logout(request):
     return HttpResponseRedirect('/')
 
 
-def sell_product(request):
-    if request.method == 'GET':
-        product_form = ProductForm()
-        template_name = 'product/create.html'
-        return render(request, template_name, {'product_form': product_form})
+def addmember(request):
+     # A boolean value for telling the template whether the registration was successful.
+    # Set to False initially. Code changes value to True when registration succeeds.
+    registered = False
 
-    elif request.method == 'POST':
-        form_data = request.POST
+    # Create a new user by invoking the `create_user` helper method
+    # on Django's built-in User model
+    if request.method == 'POST':
+        user_form = UserForm(data=request.POST)
 
-        p = Product(
-            seller = request.user,
-            title = form_data['title'],
-            description = form_data['description'],
-            price = form_data['price'],
-            quantity = form_data['quantity'],
-        )
-        p.save()
-        template_name = 'product/success.html'
-        return render(request, template_name, {})
+        if user_form.is_valid():
+            # Save the user's form data to the database.
+            user = user_form.save()
 
-def list_products(request):
-    all_products = Product.objects.all()
-    template_name = 'product/list.html'
-    return render(request, template_name, {'products': all_products})
+            # Now we hash the password with the set_password method.
+            # Once hashed, we can update the user object.
+            user.set_password(user.password)
+            user.save()
+
+            # Update our variable to tell the template registration was successful.
+            # registered = True
+
+        # return render(request, 'index.html')
+        return HttpResponseRedirect('/')
+
+    elif request.method == 'GET':
+        user_form = UserForm()
+        template_name = 'addmember.html'
+        return render(request, template_name, {'user_form': user_form})
+        
+        
+    # if request.method == 'POST':
+    #     user = UserForm(data=request.POST)
+    #     username=request.POST['username']
+    #     password=request.POST['password']
+    #     authenticated_user = authenticate(username=username, password=password)
+    #     if user.is_valid():
+    #         user.set_password(password)
+    #         user.save()
+    #         return render(request, 'index.html')
+    
+    # elif request.method == 'GET':
+    #     user_form = UserForm()
+    #     template_name = 'addmember.html'
+    #     return render(request, template_name, {'user_form': user_form})
 
 
 

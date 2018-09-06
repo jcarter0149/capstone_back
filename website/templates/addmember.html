@@ -5,15 +5,9 @@
     </head>
 
     <body>
-        <h1>Register</h1>
+        <h1>Add Team Member</h1>
 
-        {% if registered %}
-        <strong>Thank you for registering!</strong>
-        <a href="{% url 'website:index' %}">Return to the homepage.</a><br />
-        {% else %}
-        <strong>Register here!</strong><br />
-
-        <form id="user_form" method="post" action="{% url 'website:register' %}"
+        <form id="user_form" method="post" action="{% url 'website:addmember' %}"
                 enctype="multipart/form-data">
 
             {% csrf_token %}
@@ -23,8 +17,8 @@
                  making everything look neater. -->
             {{ user_form.as_p }}
             <!-- Provide a button to click to submit the form. -->
+            
             <input type="submit" name="submit" value="Register" />
         </form>
-        {% endif %}
     </body>
 </html>

@@ -10,7 +10,7 @@
     <div class="header">
       <h1>Team Name</h1>
       <h1>Welcome {{ user.username }}!</h1>
-      <button class="addmemberbtn">Add Member</button>
+      <a href="{% url 'website:addmember' %}" class="addmemberbtn">Add Member</a>
       <button class="editprofilebtn">Edit Profile</button>
     </div>
 
