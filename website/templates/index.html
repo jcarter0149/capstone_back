@@ -12,22 +12,48 @@
       <h1>Welcome {{ user.username }}!</h1>
       <a href="{% url 'website:addmember' %}" class="addmemberbtn">Add Member</a>
       <button class="editprofilebtn">Edit Profile</button>
+      <a href="{% url 'website:detainee' %}">Add Detainee</a>
     </div>
 
     <div class="inter">
-      <h3>Interrogator</h3> <button class="createsessionbtn">Create</button>
+      <h3>Interrogator</h3> 
+        <a href="{% url 'website:addsession' %}">Create</a>
+          {% for s in session_list %} {% if s.role_id == 2 %}
+            <ul>
+              <li><a href="{% url 'website:detaineedetail' s.detainee_id %}">{{ s.name }}</a></li>
+              <li>{{ s.length_of_sess }}</li>
+              <li> {{ s.detainee }}</li>
+              
+            </ul>
+          {% endif %}{% endfor %}
+          
     </div>
 
     <div>
       <h3>Analyst</h3>
+      {% for s in session_list %} {% if s.role_id == 3 %}
+            <ul>
+              <li><a href="{% url 'website:detaineedetail' s.detainee_id %}">{{ s.name }}</a></li>
+            </ul>
+          {% endif %}{% endfor %}
     </div>
 
     <div>
       <h3>To Review</h3>
+      {% for s in session_list %} {% if s.role_id == 1 %}
+            <ul>
+              <li><a href="{% url 'website:detaineedetail' s.detainee_id %}">{{ s.name }}</a></li>
+            </ul>
+          {% endif %}{% endfor %}
     </div>
 
     <div>
       <h3>Completed</h3>
+      {% for s in session_list %} {% if s.role_id == 4 %}
+            <ul>
+              <li><a href="{% url 'website:detaineedetail' s.detainee_id %}">{{ s.name }}</a></li>
+            </ul>
+          {% endif %}{% endfor %}
     </div>
     <a href="{% url 'website:logout' %}">Logout</a>
     {% else %}

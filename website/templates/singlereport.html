@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reports</title>
+    </head>
+
+    <body>
+            <div>
+                    <h1>{{ report.name }}</h1>
+                    <h3>{{ report.detainee }}</h3>
+                    <p>{{ report.date_created }}</p>
+                    <p>{{ report.creator }}</p>
+                    <p>{{ report.text_data|linebreaks }}</p>
+                    <button>Edit</button>
+                </div>
+    </body>
+</html>

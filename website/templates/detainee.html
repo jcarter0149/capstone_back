@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reports</title>
+    </head>
+
+    <body>
+            <div>
+                    <h1>{{ detainee.name }}</h1>
+                    <h3>{{ detainee.alias }}</h3>
+                    <p>{{ detainee.date_captured }}</p>
+                    <p>{{ detainee.capture_location }}</p>
+                    <p>{{ detainee.team }}</p>
+                    <a href="{% url 'website:report' %}">Add Report</a>
+                </div>    
+                
+                <div>
+                    <h2>Report History</h2>
+                    {% for r in reports_list %} {% if r.detainee_id == detainee.id %}
+                    <h3><a href="{% url 'website:singlereport' r.id %}">{{ r.name }}</a></h3>
+                    {% endif %} {% endfor %}
+                </div>    
+    </body>
+</html>

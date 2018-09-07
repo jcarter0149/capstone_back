@@ -1,14 +1,18 @@
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.views.generic import UpdateView
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
 from django.template import RequestContext
+from .models import *
 
-from website.forms import UserForm
+from website.forms import *
 
 def index(request):
     template_name = 'index.html'
-    return render(request, template_name, {})
+    sessions = Session.objects.all()
+    detainees = Detainee.objects.all()
+    return render(request, template_name, {'session_list': sessions, 'detainee_list': detainees})
 
 
 # Create your views here.
@@ -119,12 +123,63 @@ def addmember(request):
         user_form = UserForm()
         template_name = 'addmember.html'
         return render(request, template_name, {'user_form': user_form})
-        
-        
+
+@login_required        
+def add_detainee(request):
+    if request.method == 'GET':
+        detainee_form = DetaineeForm() 
+        template_name = 'adddetainee.html'
+        return render(request, template_name, {'detainee_form': detainee_form})  
+
+    elif request.method == 'POST':
+        form = DetaineeForm(request.POST)
+        form.data = request.POST
+        form.save()
+        return HttpResponseRedirect('/')
+
+@login_required
+def session(request):
+    if request.method == 'GET':
+        session_form = SessionForm() 
+        template_name = 'session.html'
+        return render(request, template_name, {'session_form': session_form}) 
     
+    elif request.method == 'POST':
+        form = SessionForm(request.POST)
+        form.data = request.POST
+        form.save()
+        return  HttpResponseRedirect('/')
+
+@login_required
+def report(request):
+    if request.method == 'GET':
+        report_form = ReportForm() 
+        template_name = 'createreport.html'
+        return render(request, template_name, {'report_form': report_form}) 
+    
+    elif request.method == 'POST':
+        form = ReportForm(request.POST)
+        form.data = request.POST
+        form.save()
+        return  HttpResponseRedirect('/')
 
 
+def detainee(request, pk):
+    detainee = Detainee.objects.get(pk=pk)
+    reports = Report.objects.all()
+    sessions = Session.objects.all()
+    return render(request, 'detainee.html', {'detainee': detainee, 'reports_list': reports,'session_list': sessions})
 
+def singlereport(request, pk):
+    report = Report.objects.get(pk=pk)
+    return render (request, 'singlereport.html', {'report': report})
 
-
-
+def updatesessionrole(UpdateView, pk):
+    session = Session.objects.get(pk=pk)
+    model = Session
+    fields = ['role']
+    UpdateView.method = 'GET'
+    session_form = SessionForm() 
+    template_name = 'session.html'
+    return render(UpdateView, template_name, {'session_form': session_form}) 
+    

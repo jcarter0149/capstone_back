@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Report</title>
+    </head>
+
+    <body>
+        <h1>Add Detainee</h1>
+
+        <form id="detainee_form" method="post" action="{% url 'website:detainee' %}">
+               
+            {% csrf_token %} 
+            
+            {{ detainee_form.as_p }}
+
+            <input type="submit" value="submit" />
+        </form>
+
+    </body>
+</html>
