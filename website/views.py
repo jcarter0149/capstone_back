@@ -4,6 +4,7 @@ from django.views.generic import UpdateView
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
 from django.template import RequestContext
+from django.urls import reverse
 from .models import *
 from website.forms import *
 
@@ -182,5 +183,13 @@ class updatesessionrole(UpdateView):
     def form_valid(self, form):
         form.save()
         return HttpResponseRedirect('/')
-   
+
+class editreport(UpdateView):
+    model = Report
+    fields = ('text_data',)
+    template_name = 'editreport.html'
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(reverse('website:singlereport', kwargs={'pk':self.object.id}))
     

@@ -12,10 +12,10 @@
   <body>
     {% if user.is_authenticated %}
     <div class="header">
-      <h1>Team Name, {{ user.username }}</h1>
+      <h1>Erbil Team, {{ user.username }}</h1>
       <a href="{% url 'website:addmember' %}" type="button" class="btn btn-dark">Add Member</a>
       <a href="{% url 'website:detainee' %}"type="button" class="btn btn-dark">Add Detainee</a>
-      <button class="btn btn-dark">Edit Profile</button>
+      <!-- <button class="btn btn-dark">Edit Profile</button> -->
     </div>
 
     <div class="content">
@@ -38,7 +38,7 @@
                   </select>{% csrf_token %}<input type='submit' class="btn btn-dark">
                 </form>
                   {% endif %}{% endfor %}  
-            </span> 
+              </span> 
       </div>
 
       <div class="card">

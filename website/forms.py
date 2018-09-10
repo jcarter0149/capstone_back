@@ -41,4 +41,10 @@ class Updatesession(forms.ModelForm):
         model = Session
         fields = ('role',)
 
+class EditReport(forms.ModelForm):
+
+    class Meta:
+        model = Report
+        fields = ('text_data',)
+
 

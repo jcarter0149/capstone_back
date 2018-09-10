@@ -14,8 +14,10 @@
                     <h3>{{ report.detainee }}</h3>
                     <p>{{ report.date_created }}</p>
                     <p>{{ report.creator }}</p>
-                    <button>Edit</button>
+                    <a href="{% url 'website:editreport' report.id %}">Edit</a>
                     <p>{{ report.text_data|linebreaks }}</p>
                 </div>
     </body>
 </html>
+
+

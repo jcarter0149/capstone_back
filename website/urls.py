@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^detainee/(?P<pk>\d+)/$', views.detainee, name='detaineedetail'),
     url(r'^createreport$', views.report, name='report'),
     url(r'^report/(?P<pk>\d+)/$', views.singlereport, name='singlereport'),
+    url(r'^editreport/(?P<pk>\d+)/$', views.editreport.as_view(), name='editreport'),
 ]
