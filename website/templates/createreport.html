@@ -1,11 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
         <title>Reports</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'main.css' %}">
     </head>
 
     <body>
-        <h1>Add Team Member</h1>
+        <h1>Create Report</h1>
 
         <form id="user_form" method="post" action="{% url 'website:report' %}"
                 enctype="multipart/form-data">
@@ -19,7 +23,7 @@
     
             <!-- Provide a button to click to submit the form. -->
             
-            <input type="submit" name="submit" value="Register" />
+            <input type="submit" name="submit" value="Submit" />
         </form>
     </body>
 </html>

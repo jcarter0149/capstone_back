@@ -1,7 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
         <title>Reports</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'main.css' %}">
     </head>
 
     <body>
@@ -10,8 +14,8 @@
                     <h3>{{ report.detainee }}</h3>
                     <p>{{ report.date_created }}</p>
                     <p>{{ report.creator }}</p>
-                    <p>{{ report.text_data|linebreaks }}</p>
                     <button>Edit</button>
+                    <p>{{ report.text_data|linebreaks }}</p>
                 </div>
     </body>
 </html>

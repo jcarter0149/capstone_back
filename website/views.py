@@ -5,14 +5,14 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
 from django.template import RequestContext
 from .models import *
-
 from website.forms import *
 
 def index(request):
     template_name = 'index.html'
     sessions = Session.objects.all()
     detainees = Detainee.objects.all()
-    return render(request, template_name, {'session_list': sessions, 'detainee_list': detainees})
+    roles = Role.objects.all()
+    return render(request, template_name, {'session_list': sessions, 'detainee_list': detainees, 'role_list': roles})
 
 
 # Create your views here.
@@ -174,12 +174,13 @@ def singlereport(request, pk):
     report = Report.objects.get(pk=pk)
     return render (request, 'singlereport.html', {'report': report})
 
-def updatesessionrole(UpdateView, pk):
-    session = Session.objects.get(pk=pk)
+class updatesessionrole(UpdateView):
+    # session = Session.objects.get(pk=pk)
     model = Session
-    fields = ['role']
-    UpdateView.method = 'GET'
-    session_form = SessionForm() 
-    template_name = 'session.html'
-    return render(UpdateView, template_name, {'session_form': session_form}) 
+    fields = ('role',)
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect('/')
+   
     

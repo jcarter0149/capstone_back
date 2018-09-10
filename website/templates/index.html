@@ -1,65 +1,99 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>Reports</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'main.css' %}">
   </head>
+
   <body>
     {% if user.is_authenticated %}
     <div class="header">
-      <h1>Team Name</h1>
-      <h1>Welcome {{ user.username }}!</h1>
-      <a href="{% url 'website:addmember' %}" class="addmemberbtn">Add Member</a>
-      <button class="editprofilebtn">Edit Profile</button>
-      <a href="{% url 'website:detainee' %}">Add Detainee</a>
+      <h1>Team Name, {{ user.username }}</h1>
+      <a href="{% url 'website:addmember' %}" type="button" class="btn btn-dark">Add Member</a>
+      <a href="{% url 'website:detainee' %}"type="button" class="btn btn-dark">Add Detainee</a>
+      <button class="btn btn-dark">Edit Profile</button>
     </div>
 
-    <div class="inter">
-      <h3>Interrogator</h3> 
-        <a href="{% url 'website:addsession' %}">Create</a>
-          {% for s in session_list %} {% if s.role_id == 2 %}
-            <ul>
-              <li><a href="{% url 'website:detaineedetail' s.detainee_id %}">{{ s.name }}</a></li>
-              <li>{{ s.length_of_sess }}</li>
-              <li> {{ s.detainee }}</li>
-              
-            </ul>
-          {% endif %}{% endfor %}
-          
-    </div>
+    <div class="content">
 
-    <div>
-      <h3>Analyst</h3>
-      {% for s in session_list %} {% if s.role_id == 3 %}
-            <ul>
-              <li><a href="{% url 'website:detaineedetail' s.detainee_id %}">{{ s.name }}</a></li>
-            </ul>
-          {% endif %}{% endfor %}
-    </div>
+      <div class="card">
+        <a id="create_btn" href="{% url 'website:addsession' %}"  class="btn btn-dark">Create</a>
+        <h3>Interrogator</h3> 
+            {% for s in session_list %} {% if s.role_id == 2 %}
+              <ul class="session_list">
+                <li><a href="{% url 'website:detaineedetail' s.detainee_id %}" type="button" class="btn btn-dark">{{ s.name }}</a></li>
+                <li>{{ s.length_of_sess }}</li>
+                <li> {{ s.detainee }}</li>
+              </ul>
+              <span>
+                <form method = "POST" action="{% url 'website:updatesession' s.id %}">
+                  <select name="role">
+                    {% for r in role_list %} {% if s.role_id != r.id %}
+                    <option value="{{r.id}}">{{ r.name }}</option>
+                    {% endif %}{% endfor %}
+                  </select>{% csrf_token %}<input type='submit' class="btn btn-dark">
+                </form>
+                  {% endif %}{% endfor %}  
+            </span> 
+      </div>
 
-    <div>
-      <h3>To Review</h3>
-      {% for s in session_list %} {% if s.role_id == 1 %}
-            <ul>
-              <li><a href="{% url 'website:detaineedetail' s.detainee_id %}">{{ s.name }}</a></li>
-            </ul>
-          {% endif %}{% endfor %}
-    </div>
+      <div class="card">
+        <h3>Analyst</h3>
+        {% for s in session_list %} {% if s.role_id == 3 %}
+              <ul>
+                <li><a href="{% url 'website:detaineedetail' s.detainee_id %}" class="btn btn-dark">{{ s.name }}</a></li>
+              </ul>
+              <form method = "POST" action="{% url 'website:updatesession' s.id %}">
+                  <select name="role">
+                {% for r in role_list %} {% if s.role_id != r.id %}
+                <option value="{{r.id}}">{{ r.name }}</option>
+                {% endif %}{% endfor %}
+              </select>{% csrf_token %}<input type='submit' class="btn btn-dark"></form>
+            {% endif %}{% endfor %}
+        </div>
 
-    <div>
-      <h3>Completed</h3>
-      {% for s in session_list %} {% if s.role_id == 4 %}
-            <ul>
-              <li><a href="{% url 'website:detaineedetail' s.detainee_id %}">{{ s.name }}</a></li>
-            </ul>
-          {% endif %}{% endfor %}
+
+      <div class="card">
+        <h3>To Review</h3>
+        {% for s in session_list %} {% if s.role_id == 1 %}
+              <ul>
+                <li><a href="{% url 'website:detaineedetail' s.detainee_id %}" class="btn btn-dark">{{ s.name }}</a></li>
+              </ul>
+              <form method = "POST" action="{% url 'website:updatesession' s.id %}">
+                  <select name="role">
+                {% for r in role_list %} {% if s.role_id != r.id %}
+                <option value="{{r.id}}">{{ r.name }}</option>
+                {% endif %}{% endfor %}
+              </select>{% csrf_token %}<input type='submit' class="btn btn-dark"></form>
+            {% endif %}{% endfor %}
+      </div>
+
+      <div class="card">
+        <h3>Completed</h3>
+        {% for s in session_list %} {% if s.role_id == 4 %}
+              <ul>
+                <li><a href="{% url 'website:detaineedetail' s.detainee_id %}" class="btn btn-dark">{{ s.name }}</a></li>
+              </ul>
+              <form method = "POST" action="{% url 'website:updatesession' s.id %}">
+                  <select name="role">
+                {% for r in role_list %} {% if s.role_id != r.id %}
+                <option value="{{r.id}}">{{ r.name }}</option>
+                {% endif %}{% endfor %}
+              </select>{% csrf_token %}<input type='submit' class="btn btn-dark"></form>
+            {% endif %}{% endfor %}
+      </div>
+      <a href="{% url 'website:logout' %}" class="logout">Logout</a>
     </div>
-    <a href="{% url 'website:logout' %}">Logout</a>
     {% else %}
     <h1>test...</h1>
-    <div><a href="{% url 'website:register' %}">Register</a></div>
-    <div><a href="{% url 'website:login' %}">Login</a></div>
+    <div><a href="{% url 'website:register' %}" class="btn btn-dark">Register</a></div>
+    <div><a href="{% url 'website:login' %}" class="btn btn-dark">Login</a></div>
     {% endif %}
+    
+    
   </body>
 </html>
