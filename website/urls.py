@@ -1,4 +1,6 @@
 from django.conf.urls import url
+from django.conf.urls.static import static
+from django.conf import settings
 
 from . import views
 
@@ -18,3 +20,5 @@ urlpatterns = [
     url(r'^editreport/(?P<pk>\d+)/$', views.editreport.as_view(), name='editreport'),
     url(r'^editprofile$', views.editprofile, name='editprofile')
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

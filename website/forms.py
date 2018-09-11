@@ -19,7 +19,7 @@ class DetaineeForm(forms.ModelForm):
     
     class Meta:
         model = Detainee
-        fields = ('name', 'alias', 'date_captured', 'capture_location', 'team')
+        fields = ('name', 'alias', 'date_captured', 'capture_location', 'team', 'image')
 
 
 class SessionForm(forms.ModelForm):

@@ -14,7 +14,7 @@
     <body class="formbody">
         <h1>Add Detainee</h1>
 
-        <form id="detainee_form" method="post" action="{% url 'website:detainee' %}">
+        <form id="detainee_form" method="POST" action="{% url 'website:detainee' %}" enctype="multipart/form-data">
                
             {% csrf_token %} 
             
