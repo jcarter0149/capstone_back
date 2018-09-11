@@ -25,14 +25,6 @@ class Detainee(models.Model):
     def __str__(self):
         return self.name
 
-class Report(models.Model):
-    name = models.CharField(max_length=255)
-    date_created = models.DateField(auto_now=False, auto_now_add=True)
-    date_due = models.DateField(auto_now=False, auto_now_add=False)
-    text_data = models.TextField()
-    detainee = models.ForeignKey(Detainee, on_delete=models.CASCADE)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
-
 class Role(models.Model):
     name = models.CharField(max_length=255)
 
@@ -46,19 +38,23 @@ class Session(models.Model):
     detainee = models.ForeignKey(Detainee, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.detainee
+        return self.name
 
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     rank = models.CharField(choices=RANK_CHOICES, null=True, max_length=15)
-#     team = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
-#     role = models.ForeignKey(Role, null=True, on_delete=models.CASCADE)
+class Report(models.Model):
+    name = models.CharField(max_length=255)
+    date_created = models.DateField(auto_now=False, auto_now_add=True)
+    date_due = models.DateField(auto_now=False, auto_now_add=False)
+    text_data = models.TextField()
+    detainee = models.ForeignKey(Detainee, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE)
 
-# @receiver(post_save, sender=User)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         Profile.objects.create(user=instance)
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rank = models.CharField(choices=RANK_CHOICES, null=True, max_length=15)
+    team = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, null=True, on_delete=models.CASCADE)
 
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.profile.save()
+    def __str__(self):
+        return self.role
+

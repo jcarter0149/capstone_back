@@ -9,11 +9,11 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password', 'first_name', 'last_name',)
 
-# class ProfileForm(forms.ModelForm):
+class ProfileForm(forms.ModelForm):
 
-#     class Meta:
-#         model = Profile
-#         fields = ('rank', 'team', 'role')
+    class Meta:
+        model = Profile
+        fields = ('rank', 'team', 'role', 'user')
 
 class DetaineeForm(forms.ModelForm):
     
@@ -30,10 +30,11 @@ class SessionForm(forms.ModelForm):
 
 
 class ReportForm(forms.ModelForm):
+    text_data = forms.CharField(required=True, widget=forms.Textarea(attrs={'rows': 20, 'cols': 150}))
 
     class Meta:
         model = Report
-        fields= ('creator', 'name', 'detainee', 'date_due', 'text_data')
+        fields= ('creator', 'name', 'detainee', 'date_due', 'text_data', 'session')
 
 class Updatesession(forms.ModelForm):
 

@@ -13,7 +13,8 @@ def index(request):
     sessions = Session.objects.all()
     detainees = Detainee.objects.all()
     roles = Role.objects.all()
-    return render(request, template_name, {'session_list': sessions, 'detainee_list': detainees, 'role_list': roles})
+    profiles = Profile.objects.all()
+    return render(request, template_name, {'session_list': sessions, 'detainee_list': detainees, 'role_list': roles, 'profile_list': profiles})
 
 
 # Create your views here.
@@ -118,7 +119,7 @@ def addmember(request):
             # registered = True
 
         # return render(request, 'index.html')
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(reverse('website:editprofile'))
 
     elif request.method == 'GET':
         user_form = UserForm()
@@ -164,7 +165,6 @@ def report(request):
         form.save()
         return  HttpResponseRedirect('/')
 
-
 def detainee(request, pk):
     detainee = Detainee.objects.get(pk=pk)
     reports = Report.objects.all()
@@ -173,6 +173,7 @@ def detainee(request, pk):
 
 def singlereport(request, pk):
     report = Report.objects.get(pk=pk)
+    sessions = Session.objects.all()
     return render (request, 'singlereport.html', {'report': report})
 
 class updatesessionrole(UpdateView):
@@ -193,3 +194,16 @@ class editreport(UpdateView):
         form.save()
         return HttpResponseRedirect(reverse('website:singlereport', kwargs={'pk':self.object.id}))
     
+@login_required
+def editprofile(request):
+    if request.method == 'GET':
+        profile_form = ProfileForm() 
+        template_name = 'editprofile.html'
+        return render(request, template_name, {'profile_form': profile_form}) 
+    
+    elif request.method == 'POST':
+        form = ProfileForm(request.POST)
+        form.data = request.POST
+        form.save()
+        return  HttpResponseRedirect('/')
+
