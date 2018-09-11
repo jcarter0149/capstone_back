@@ -7,7 +7,9 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'main.css' %}">
     </head>
-
+        <div>
+            <a href="/" class="button">Home</a>
+        </div>
     <body>
         <h1>Edit Report {{ report.name }}</h1> 
         <form id="edit_report" method="post" action="{% url 'website:editreport' report.id %}"

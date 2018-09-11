@@ -7,23 +7,27 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'main.css' %}">
     </head>
+        <div>
+            <a href="/" class="button">Home</a>
+        </div>
+    <body class="formbody">
+        <div>
+            <h1>Create Report</h1>
 
-    <body>
-        <h1>Create Report</h1>
+            <form id="user_form" method="post" action="{% url 'website:report' %}"
+                    enctype="multipart/form-data">
 
-        <form id="user_form" method="post" action="{% url 'website:report' %}"
-                enctype="multipart/form-data">
+                {% csrf_token %}
 
-            {% csrf_token %}
-
-            <!-- Display each form. The as_p method wraps each element in a paragraph
-                 (<p>) element. This ensures each element appears on a new line,
-                 making everything look neater. -->
-            {{ report_form.as_p }}
-    
-            <!-- Provide a button to click to submit the form. -->
-            
-            <input type="submit" name="submit" value="Submit" />
-        </form>
+                <!-- Display each form. The as_p method wraps each element in a paragraph
+                    (<p>) element. This ensures each element appears on a new line,
+                    making everything look neater. -->
+                {{ report_form.as_p }}
+        
+                <!-- Provide a button to click to submit the form. -->
+                
+                <input type="submit" name="submit" value="Submit" />
+            </form>
+        </div>
     </body>
 </html>
