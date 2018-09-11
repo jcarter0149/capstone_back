@@ -21,6 +21,7 @@ class Detainee(models.Model):
     date_captured = models.DateField(auto_now=False, auto_now_add=False)
     capture_location = models.CharField(max_length=255)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='%m/%d')
 
     def __str__(self):
         return self.name

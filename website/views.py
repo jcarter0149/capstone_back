@@ -134,9 +134,10 @@ def add_detainee(request):
         return render(request, template_name, {'detainee_form': detainee_form})  
 
     elif request.method == 'POST':
-        form = DetaineeForm(request.POST)
-        form.data = request.POST
-        form.save()
+        form = DetaineeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.data = request.POST
+            form.save()
         return HttpResponseRedirect('/')
 
 @login_required

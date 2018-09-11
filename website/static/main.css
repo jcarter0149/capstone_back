@@ -76,6 +76,7 @@ a.button:hover{
     color: white;
    }
 
-/* .navishbar{
-    background-color: gray; 
-} */
+img{
+    height: 250px;
+    width: 250px;
+}
