@@ -7,8 +7,11 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'main.css' %}">
     </head>
-        <div>
+        <div class="detainee_home_btn">
             <a href="/" class="button">Home</a>
+            {% for d in detainee_list %} {% if report.detainee.id == d.id %}
+            <a href="{% url 'website:detaineedetail' d.id %}" class="button">Back</a>
+            {% endif %}{% endfor %}
         </div> 
     <body>
             <div>
@@ -19,7 +22,7 @@
                     <h3>{{ report.detainee }}</h3>
                     <p>{{ report.date_created }}</p>
                     <p>{{ report.creator }}</p>
-                    <a href="{% url 'website:editreport' report.id %}">Edit</a>
+                    <a class="button" href="{% url 'website:editreport' report.id %}">Edit</a>
                     <p>{{ report.text_data|safe }}</p>
                 </div>
     </body>

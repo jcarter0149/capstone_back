@@ -17,7 +17,8 @@
           <div class="navishbar">
             <a href="{% url 'website:addmember' %}" class="button">Add Member</a>
           {% endif %} {% endfor %}
-            <a href="{% url 'website:detainee' %}" class="button">Add Detainee</a>
+            <a href="{% url 'website:detainee' %}" class="detaineebutton">Add Detainee</a>
+            <a href="{% url 'website:team' %}" class="button">Team View</a>
           </div>
       </div>
 
@@ -125,11 +126,13 @@
       <a href="{% url 'website:logout' %}" class="logout">Logout</a>
     </div>
     {% else %}
-    <h1>test...</h1>
-    <div><a href="{% url 'website:register' %}" class="btn btn-dark">Register</a></div>
-    <div><a href="{% url 'website:login' %}" class="btn btn-dark">Login</a></div>
-    {% endif %}
-    
+    <div class="formbody login">
+      <h1>Please Login in below</h1>
+      <h3 class="login_page">Only Team Leaders should Register if team has not been created</h3>
+      <a href="{% url 'website:register' %}" class="button reg">Register</a>
+      <a href="{% url 'website:login' %}" class="button login">Login</a>
+      {% endif %}
+    </div>
     
   </body>
 </html>

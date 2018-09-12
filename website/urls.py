@@ -18,7 +18,9 @@ urlpatterns = [
     url(r'^createreport$', views.report, name='report'),
     url(r'^report/(?P<pk>\d+)/$', views.singlereport, name='singlereport'),
     url(r'^editreport/(?P<pk>\d+)/$', views.editreport.as_view(), name='editreport'),
-    url(r'^editprofile$', views.editprofile, name='editprofile')
+    url(r'^editprofile$', views.editprofile, name='editprofile'),
+    url(r'^team$', views.team, name='team'),
+    # url(r'^deleteuser$', views.userdelete, name='deleteuser'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
