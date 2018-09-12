@@ -1,6 +1,6 @@
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DeleteView
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
 from django.template import RequestContext
@@ -209,3 +209,12 @@ def editprofile(request):
         form.save()
         return  HttpResponseRedirect('/')
 
+def team(request):
+    users=User.objects.all()
+    profiles=Profile.objects.all()
+    return render(request, 'team.html', {'users':users, 'profiles': profiles})
+
+@login_required
+class userdelete(DeleteView):
+    model=User
+    success_url = "{% url 'website:team' %}"

@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reports</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'main.css' %}">
+    </head>
+        <div class="detainee_home_btn">
+            <a href="/" class="button">Home</a>
+        </div> 
+    <body>
+        <h1 class="header">Erbil Team</h1>
+        <div class="teamcardwrapper">
+        {% for u in users %}
+            <div class="teamcard">
+                <h3>{{ u.first_name }}  {{ u.last_name }}</h3> 
+                <p>{{ u.username }}</p>  
+                {% for p in profiles %} 
+                {% if p.user_id == u.id %}
+                <p>{{ p.role.name }}</p> 
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>
+

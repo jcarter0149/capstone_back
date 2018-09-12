@@ -7,25 +7,27 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'main.css' %}">
     </head>
-        <div>
+    <body>
+        <div class="detainee_home_btn">
             <a href="/" class="button">Home</a>
         </div>
-    <body class="formbody">
+        <div class="detainee">
             <div>
-                    <img src="{{ MEDIA_URL}} {{detainee.image.url}}" alt=""/>
+                    <img class="img" src="{{ MEDIA_URL}} {{detainee.image.url}}" alt=""/>
                     <h1>{{ detainee.name }}</h1>
                     <h3>{{ detainee.alias }}</h3>
-                    <p>{{ detainee.date_captured }}</p>
-                    <p>{{ detainee.capture_location }}</p>
-                    <p>{{ detainee.team }}</p>
-                    <a href="{% url 'website:report' %}">Add Report</a>
+                    <p>Captured Date: {{ detainee.date_captured }}</p>
+                    <p>Captured Location: {{ detainee.capture_location }}</p>
+                    <p>Team: {{ detainee.team }}</p>
                 </div>    
                 
                 <div>
-                        <h2>Report History</h2>
-                        {% for r in reports_list %} {% if r.detainee_id == detainee.id %}
-                        <h3>{{ r.session.name }}: <a href="{% url 'website:singlereport' r.id %}">{{ r.name }} </a></h3>
-                        {% endif %} {% endfor %}
-                    </div>   
+                    <a href="{% url 'website:report' %}">Add Report</a>
+                    <h2>Report History</h2>
+                    {% for r in reports_list %} {% if r.detainee_id == detainee.id %}
+                    <h3>{{ r.session.name }}: <a href="{% url 'website:singlereport' r.id %}">{{ r.name }} </a></h3>
+                    {% endif %} {% endfor %}
+                </div>  
+        </div> 
     </body>
 </html>

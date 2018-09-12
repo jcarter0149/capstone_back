@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="{% static 'main.css' %}">
         {{ form.media }}
     </head>
-        <div>
+        <div class="detainee_home_btn">
             <a href="/" class="button">Home</a>
         </div>
     <body>
@@ -19,7 +19,7 @@
             {% csrf_token %}
             {{ form.as_p }}
 
-            <input type="submit" name="submit" value="Submit" />
+            <input type="submit" class="submitbutton" name="submit" value="Submit" />
         </form>
     </body>
 </html>
