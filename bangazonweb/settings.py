@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'website',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,16 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,paste,searchreplace",
+    'theme': "advanced",
+    'cleanup_on_startup': True,
+    'min_height': 250,
+    'width': 1200,
+    'forced_root_block' : "",
+    'plugins': "spellchecker",
+    'theme_advanced_buttons1': 'fontsizeselect,bold,italic,underline,bullist,numlist,|,image',
+    'browser_spellcheck' : True,
+    'fontsize_formats': '8pt 10pt 12pt 14pt 18pt 24pt 36pt'
+    }

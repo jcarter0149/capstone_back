@@ -3,6 +3,8 @@ from django.db import models
 from datetime import datetime, timedelta  
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from tinymce.models import HTMLField
+from tinymce import models as tinymce_models
 
 RANK_CHOICES = (
     ('Military', 'MILITARY'),
@@ -45,7 +47,7 @@ class Report(models.Model):
     name = models.CharField(max_length=255)
     date_created = models.DateField(auto_now=False, auto_now_add=True)
     date_due = models.DateField(auto_now=False, auto_now_add=False)
-    text_data = models.TextField()
+    text_data = tinymce_models.HTMLField()
     detainee = models.ForeignKey(Detainee, on_delete=models.CASCADE)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
