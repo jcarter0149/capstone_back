@@ -13,11 +13,14 @@
     <body>
             <div>
                     <h1>{{ report.name }}</h1>
+                    {% for d in detainee_list %} {% if d.id == report.detainee.id %}
+                    <img src="{{ MEDIA_URL}} {{d.image.url}}" alt=""/>
+                    {% endif %} {% endfor %}
                     <h3>{{ report.detainee }}</h3>
                     <p>{{ report.date_created }}</p>
                     <p>{{ report.creator }}</p>
                     <a href="{% url 'website:editreport' report.id %}">Edit</a>
-                    <p>{{ report.text_data|linebreaks }}</p>
+                    <p>{{ report.text_data|safe }}</p>
                 </div>
     </body>
 </html>

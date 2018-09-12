@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django import forms
 from website.models import *
+from tinymce.widgets import TinyMCE
+from django.utils.html import strip_tags
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -30,7 +32,7 @@ class SessionForm(forms.ModelForm):
 
 
 class ReportForm(forms.ModelForm):
-    text_data = forms.CharField(required=True, widget=forms.Textarea(attrs={'rows': 20, 'cols': 150}))
+    text_data = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
 
     class Meta:
         model = Report
@@ -43,9 +45,13 @@ class Updatesession(forms.ModelForm):
         fields = ('role',)
 
 class EditReport(forms.ModelForm):
+    text_data = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
 
     class Meta:
         model = Report
         fields = ('text_data',)
+        
+
+    
 
 

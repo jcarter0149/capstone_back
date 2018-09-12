@@ -175,7 +175,8 @@ def detainee(request, pk):
 def singlereport(request, pk):
     report = Report.objects.get(pk=pk)
     sessions = Session.objects.all()
-    return render (request, 'singlereport.html', {'report': report})
+    detainees = Detainee.objects.all()
+    return render (request, 'singlereport.html', {'report': report, 'detainee_list': detainees})
 
 class updatesessionrole(UpdateView):
     # session = Session.objects.get(pk=pk)
