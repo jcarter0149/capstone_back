@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^editreport/(?P<pk>\d+)/$', views.editreport.as_view(), name='editreport'),
     url(r'^editprofile$', views.editprofile, name='editprofile'),
     url(r'^team$', views.team, name='team'),
+    url(r'^pdfreport/(?P<pk>\d+)/$', views.pdfreport, name='pdf')
     # url(r'^deleteuser$', views.userdelete, name='deleteuser'),
 ]
 

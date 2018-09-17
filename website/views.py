@@ -7,6 +7,11 @@ from django.template import RequestContext
 from django.urls import reverse
 from .models import *
 from website.forms import *
+import pdfkit
+from django.template.loader import get_template 
+from django.template import Context
+
+
 
 def index(request):
     template_name = 'index.html'
@@ -218,3 +223,20 @@ def team(request):
 class userdelete(DeleteView):
     model=User
     success_url = "{% url 'website:team' %}"
+
+
+def pdfreport(request, pk):
+    report = Report.objects.get(pk=pk)
+    options = {
+    'page-size': 'A4',
+    'margin-top': '0.75in',
+    'margin-right': '0.75in',
+    'margin-bottom': '0.75in',
+    'margin-left': '0.75in',
+}
+    reportUrl = "http://localhost:8000/report/" + str(report.id)
+    pdf = pdfkit.from_url(reportUrl, False, options=options)
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename = "report.pdf"'
+
+    return response
